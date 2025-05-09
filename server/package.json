@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "bun run --hot ./src/index.ts",
+    "db:push": "drizzle-kit push"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.10.0",
+  "dependencies": {
+    "@libsql/client": "^0.15.4",
+    "drizzle-kit": "^0.31.1",
+    "drizzle-orm": "^0.43.1",
+    "drizzle-seed": "^0.3.1",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.12",
+    "@types/express": "^5.0.1",
+    "nodemon": "^3.1.10"
+  }
+}
