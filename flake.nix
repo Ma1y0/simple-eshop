@@ -16,6 +16,7 @@
 	  bun
 	  sqlitebrowser
 	  typescript-language-server
+	  tailwindcss-language-server
 	  eslint_d
 	  prettierd
         ];

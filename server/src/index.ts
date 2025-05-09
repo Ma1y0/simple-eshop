@@ -1,10 +1,17 @@
 import express from "express";
 import { db } from "./db";
 import { users } from "./db/schema";
+import cookieParser from "cookie-parser";
+import AuthRouter from "./routes/auth";
 
 const app = express();
 
-app.get("/ping", (req, res) => {
+app.use(express.json());
+app.use(cookieParser());
+
+app.use("/api/v1/auth", AuthRouter);
+
+app.get("/api/v1/ping", (req, res) => {
   res.json({ message: "Pong" });
 });
 

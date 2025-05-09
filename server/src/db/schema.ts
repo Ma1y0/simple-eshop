@@ -20,3 +20,13 @@ export const users = sqliteTable("users", {
 
   ...dates,
 });
+
+export const sessions = sqliteTable("sessions", {
+  id: text().primaryKey(),
+  userId: int("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  expiresAt: text("expires_at").notNull(),
+
+  ...dates,
+});
