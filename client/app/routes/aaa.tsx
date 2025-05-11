@@ -1,6 +1,6 @@
 // route('/projects/:projectId', './project.tsx')
 import type { Route } from "./+types/aaa";
-import { Form } from "react-router";
+import { Form, Link } from "react-router";
 
 export async function clientAction({ request }: Route.ClientActionArgs) {
   let formData = await request.formData();
@@ -16,7 +16,12 @@ export default function Project({ actionData }: Route.ComponentProps) {
         <input type="text" name="title" />
         <button type="submit">Submit</button>
       </Form>
-      {actionData ? <p>{actionData.title} updated</p> : null}
+      {actionData ? (
+        <p>{(actionData.title as string) ?? "Title"} updated</p>
+      ) : null}
+      <Link to={`?$afafea=afafaw`} className="bg-red p-6">
+        Fuck Off
+      </Link>
     </div>
   );
 }
