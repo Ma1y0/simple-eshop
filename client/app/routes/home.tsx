@@ -19,6 +19,7 @@ import {
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
 import { Minus, Plus, ShoppingCart } from "lucide-react";
+import { useAuth } from "~/lib/auth";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "eshop" }, { name: "description", content: "Home page" }];
@@ -44,6 +45,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const navigate = useNavigate();
   const { data: products, pagination } = loaderData;
   const cart = useCart();
+  const { user } = useAuth();
 
   // Generate page array for pagination
   const maxPages = pagination?.totalPages ?? 1;
@@ -78,16 +80,6 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     <main className="container mx-auto px-4 py-8">
       <div className="mb-8 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Our Products</h1>
-        <div className="flex items-center gap-2">
-          <ShoppingCart className="h-5 w-5" />
-          <span className="font-medium">
-            {Array.from(cart.items.values()).reduce(
-              (sum, count) => sum + count,
-              0
-            )}{" "}
-            items
-          </span>
-        </div>
       </div>
 
       {products.length === 0 ? (
@@ -123,11 +115,17 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                 <p className="text-gray-500 text-sm line-clamp-2 mb-3">
                   {product.description || "No description available"}
                 </p>
-                <p className="font-bold text-lg">
+                <p
+                  className={`font-bold text-lg ${
+                    product.price && user?.vip ? "text-yellow-500" : ""
+                  }`}
+                >
                   {product.price
-                    ? `$${product.price / 100}`
+                    ? user?.vip
+                      ? `$${((product.price / 100) * 0.7).toFixed(2)}`
+                      : `$${(product.price / 100).toFixed(2)}`
                     : "Price not available"}
-                </p>
+                </p>{" "}
               </CardContent>
               <CardFooter className="pt-2">
                 {cart.items.has(product.id) ? (

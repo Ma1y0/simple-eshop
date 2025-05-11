@@ -55,6 +55,7 @@ export const doAuth = async (
         id: users.id,
         name: users.name,
         email: users.email,
+        vip: users.vip,
       })
       .from(users)
       .where(eq(users.id, session[0].userId))
