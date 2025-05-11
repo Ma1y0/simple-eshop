@@ -80,7 +80,7 @@ export function NavBar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem className="font-medium">
-                    {user.name}
+                    {user.name} {user.vip ?? <Badge>VIP</Badge>}
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link to="/profile" className="cursor-pointer">

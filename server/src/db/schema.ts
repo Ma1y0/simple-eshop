@@ -24,6 +24,7 @@ export const users = sqliteTable("users", {
   email: text().notNull().unique(),
   password: text().notNull(),
   avatarURL: text("avatar_url"),
+  vip: integer({ mode: "boolean" }).notNull().default(false),
 
   ...dates,
 });
