@@ -1,24 +1,42 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import type { Route } from "./+types/register";
 import { Button } from "~/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import { Link } from "react-router";
 
-export const Route = createFileRoute("/login")({
-  component: RouteComponent,
-});
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "eshop" },
+    { name: "description", content: "Sign up for a new account" },
+  ];
+}
 
-function RouteComponent() {
+export default function Page() {
   return (
-    <main className="flex items-center justify-center bg-gray-100">
+    <main className="flex items-center justify-center min-h-screen bg-gray-100">
       <Card className="w-full max-w-md shadow-md rounded-lg">
         <CardHeader className="pb-4">
           <CardTitle className="text-2xl font-semibold text-center">
-            Log In
+            Sign Up
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4">
+          <form
+            action="/api/v1/auth/register"
+            method="POST"
+            className="space-y-4"
+          >
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="name">Name</Label>
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Jane Doe"
+                required
+              />
+            </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -40,13 +58,13 @@ function RouteComponent() {
               />
             </div>
             <Button type="submit" className="w-full">
-              Log In
+              Sign Up
             </Button>
           </form>
           <div className="mt-4 text-center text-sm text-gray-500">
-            Don't have an account?{" "}
-            <Link to="/" className="text-blue-500 hover:underline">
-              Sign up
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-500 hover:underline">
+              Log in
             </Link>
           </div>
         </CardContent>

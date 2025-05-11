@@ -64,6 +64,12 @@ router.post("/login", async (req, res) => {
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 7); // Valid for 7 days
 
+    const session = await db.insert(sessions).values({
+      userId: user[0].id,
+      expiresAt: expiresAt.toISOString(),
+      id: sessionId,
+    });
+
     res.cookie("session", sessionId, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -72,7 +78,7 @@ router.post("/login", async (req, res) => {
     });
 
     res.json({
-      message: "Loggin successfully",
+      message: "Logged in successfully",
       user: {
         id: user[0].id,
         name: user[0].name,
