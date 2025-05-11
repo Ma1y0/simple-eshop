@@ -1,33 +1,29 @@
 import { Button } from "~/components/ui/button";
 import type { Route } from "./+types/home";
+import type { Item } from "types/item";
 
 export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+  return [{ title: "eshop" }, { name: "description", content: "Home page" }];
 }
 
-export default function Home() {
+export async function clientLoader({ params }: Route.ClientLoaderArgs) {
+  const res = await fetch(`/api/v1/invetory/`);
+  const products = await res.json();
+  return products.data as Item[];
+}
+
+export function HydrateFallback() {
+  return <div>Loading...</div>;
+}
+
+export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <main>
-      <h1>Hello</h1>
-      <Button
-        onClick={async () => {
-          const res = await fetch("/api/v1/user/me");
-          console.log(await res.json());
-        }}
-      >
-        Click Me!
-      </Button>
-      <Button
-        variant={"destructive"}
-        onClick={async () => {
-          await fetch("/api/v1/auth/logout", { method: "POST" });
-        }}
-      >
-        Log Out
-      </Button>
+      <div>
+        {loaderData.map((x) => (
+          <h2 key={x.id}>{x.name}</h2>
+        ))}
+      </div>
     </main>
   );
 }

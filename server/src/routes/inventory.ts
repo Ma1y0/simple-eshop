@@ -113,3 +113,5 @@ router.get("/search/:query", async (req, res) => {
     });
   }
 });
+
+export default router;
