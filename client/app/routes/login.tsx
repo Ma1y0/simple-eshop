@@ -4,7 +4,6 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Form, Link, redirect, useNavigation } from "react-router";
-import { useActionData } from "react-router";
 import { Loader2 } from "lucide-react";
 
 export function meta({}: Route.MetaArgs) {
@@ -12,7 +11,6 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function clientAction({ request }: Route.ClientActionArgs) {
-  console.log("Called the action");
   const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
