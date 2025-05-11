@@ -5,6 +5,7 @@ import { Label } from "~/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Form, Link, redirect, useNavigation } from "react-router";
 import { Loader2 } from "lucide-react";
+import { Checkbox } from "~/components/ui/checkbox";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -18,16 +19,19 @@ export async function clientAction({ request }: Route.ClientActionArgs) {
   const name = formData.get("name");
   const email = formData.get("email");
   const password = formData.get("password");
+  const vip = Boolean(formData.get("vip"));
 
   if (!name || !email || !password) {
     console.error("Provide name, email and password");
-    return { error: "Namem, email and password weren't provided" };
+    return { error: "Name, email and password weren't provided" };
   }
+
+  console.log(vip);
 
   const res = await fetch("/api/v1/auth/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, email, password }),
+    body: JSON.stringify({ name, email, password, vip }),
   });
 
   if (!res.ok) {
@@ -81,6 +85,10 @@ export default function Page({ actionData }: Route.ComponentProps) {
                 placeholder="1234"
                 required
               />
+            </div>
+            <div className="w-full max-w-sm items-center gap-1.5 flex">
+              <Label htmlFor="vip">VIP</Label>
+              <Checkbox name="vip" id="vip" />
             </div>
             {navigation.state === "submitting" ? (
               <Button disabled className="w-full">

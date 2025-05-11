@@ -8,8 +8,8 @@ const router = Router();
 
 router.post("/register", async (req, res) => {
   try {
-    const { name, email, password: passwordText } = req.body;
-    if (!name || !email || !passwordText) {
+    const { name, email, vip, password: passwordText } = req.body;
+    if (!name || !email || !passwordText || vip === undefined) {
       res.status(400).json({ error: "Name, email and password are required" });
       return;
     }
@@ -20,6 +20,7 @@ router.post("/register", async (req, res) => {
       .values({
         name,
         email,
+        vip,
         password: passwordHash,
       })
       .returning({ id: users.id });
