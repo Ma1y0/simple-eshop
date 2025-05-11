@@ -1,5 +1,11 @@
 import { sql } from "drizzle-orm";
-import { sqliteTable, int, text } from "drizzle-orm/sqlite-core";
+import {
+  sqliteTable,
+  int,
+  text,
+  integer,
+  index,
+} from "drizzle-orm/sqlite-core";
 
 const dates = {
   createdAt: text("created_at")
@@ -30,3 +36,17 @@ export const sessions = sqliteTable("sessions", {
 
   ...dates,
 });
+
+export const inventory = sqliteTable(
+  "inventory",
+  {
+    id: int().primaryKey({ autoIncrement: true }),
+    name: text().notNull(),
+    price: integer(),
+    img_url: text(),
+    description: text(),
+
+    ...dates,
+  },
+  (table) => [index("name_idx").on(table.name)],
+);
