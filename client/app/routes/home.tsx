@@ -18,7 +18,7 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, ShoppingCart } from "lucide-react";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "eshop" }, { name: "description", content: "Home page" }];
@@ -79,6 +79,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <div className="mb-8 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Our Products</h1>
         <div className="flex items-center gap-2">
+          <ShoppingCart className="h-5 w-5" />
           <span className="font-medium">
             {Array.from(cart.items.values()).reduce(
               (sum, count) => sum + count,
@@ -99,7 +100,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
           {products.map((product) => (
             <Card key={product.id} className="flex flex-col h-full">
               <CardHeader className="pb-4">
