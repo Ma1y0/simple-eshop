@@ -23,6 +23,7 @@ export const users = sqliteTable("users", {
   name: text().notNull(),
   email: text().notNull().unique(),
   password: text().notNull(),
+  avatarURL: text("avatar_url"),
 
   ...dates,
 });
